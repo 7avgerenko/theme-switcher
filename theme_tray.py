@@ -13,6 +13,8 @@ import threading
 import time
 from datetime import datetime
 
+VERSION = "1.0.0"
+
 import cairo
 import gi
 
@@ -317,7 +319,18 @@ def run_toggle():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "--toggle":
-        run_toggle()
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "--toggle":
+            run_toggle()
+        elif sys.argv[1] in ("--version", "-V"):
+            print(f"theme-switcher {VERSION}")
+        elif sys.argv[1] in ("--help", "-h"):
+            print("usage: theme_tray.py [--toggle|--version|--help]")
+            print("  (no args)  start the system-tray icon")
+            print("  --toggle   toggle light/dark and exit")
+            print("  --version  print version")
+        else:
+            print(f"unknown flag: {sys.argv[1]}")
+            sys.exit(1)
     else:
         run_tray()
